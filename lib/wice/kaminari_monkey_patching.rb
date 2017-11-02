@@ -5,7 +5,7 @@ module Kaminari #:nodoc:
       def page_url_for(page) #:nodoc:
         current_page_params_as_query_string = @param_name.to_s + '=' + (page <= 1 ? nil : page).to_s
         current_page_params_as_hash = Rack::Utils.parse_nested_query(current_page_params_as_query_string)
-        @template.url_for Wice::WgHash.rec_merge(@params, current_page_params_as_hash).symbolize_keys
+        @template.url_for Wice::WgHash.rec_merge(@params.permit!.to_h, current_page_params_as_hash).symbolize_keys
       end
     end
   end
